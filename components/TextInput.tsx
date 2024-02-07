@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 
 interface InputProps {
-  value: string;
+  value: string | number | undefined;
   type: string;
   inputId?: string;
   required?: boolean;
