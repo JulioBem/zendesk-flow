@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --vibrant-red: #ff0000;
+  --dark-red: #8b0000;
+  --light-gray: #f2f2f2;
+  --dark-gray: #333333;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--dark-gray);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
