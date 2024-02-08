@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Zendesk Flow
 
-## Getting Started
+Zendesk Flow is a modern integration tool built with a selection of cutting-edge technologies to provide a workflow for interacting with the Zendesk API.
 
-First, run the development server:
+## Why Next.js?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **React Framework:** Next.js is a React framework that enables server-side rendering, providing better performance and improved SEO.
+- **Simplified Development:** With Next.js, the development process is streamlined, allowing for faster and more efficient coding.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Why Node.js?
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **JavaScript Runtime:** Node.js is a powerful JavaScript runtime, providing a non-blocking, event-driven architecture suitable for building scalable network applications.
+- **Unified Language:** The use of Node.js allows for a unified JavaScript language stack across the entire application.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Why TypeScript?
 
-## Learn More
+- **Static Typing:** TypeScript adds static typing to JavaScript, catching potential errors during development and improving code quality.
+- **Enhanced Developer Experience:** With TypeScript, developers benefit from improved code navigation, autocompletion, and better documentation.
 
-To learn more about Next.js, take a look at the following resources:
+## Why Tailwind CSS?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Utility-First Approach:** Tailwind CSS follows a utility-first approach, offering a highly customizable and low-level utility styling framework.
+- **Rapid Prototyping:** Tailwind CSS accelerates the styling process and allows for rapid prototyping without sacrificing design flexibility.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Prerequisites
 
-## Deploy on Vercel
+Ensure you have the following installed:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Node.js
+- Yarn (alternative to npm)
+- Zendesk API URL
+- Zendesk API Token
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Installation
+
+1. **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/juliobem/zendesk-flow.git
+    ```
+
+2. **Navigate to the Project Directory:**
+
+    ```bash
+    cd zendesk-flow
+    ```
+
+3. **Install Dependencies:**
+
+    ```bash
+    yarn install
+    ```
+
+4. **Configure Environment Variables:**
+
+    Create a file named `.env.local` in the project root and add the following variables:
+
+    ```env
+    ZENDESK_API_URL=Your_Zendesk_URL
+    ZENDESK_API_TOKEN=Your_Zendesk_Token
+    ```
+
+5. **Start the Development Server:**
+
+    ```bash
+    yarn dev
+    ```
+
+    Access the project at [http://localhost:3000](http://localhost:3000).
+
+## Usage
+
+1. **Fill out the Form:**
+    - Provide the necessary information in the form.
+
+2. **Submit the Form:**
+    - Create a ticket in Zendesk by submitting the form.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

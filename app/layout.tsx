@@ -13,11 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="app">
-        <div className="main">
-          <div className="gradient" />
-        </div>
-
-        <main className="app">{children}</main>
+        <main className="app h-screen flex">{children}</main>
       </body>
     </html>
   );
