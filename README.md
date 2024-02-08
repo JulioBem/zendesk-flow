@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Zendesk Flow
 
-## Getting Started
+Zendesk Flow is a powerful integration tool designed to seamlessly connect your application with the Zendesk API, streamlining the process of creating tickets effortlessly.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Automatic Ticket Creation:** Zendesk Flow automates the creation of tickets within Zendesk, enhancing efficiency.
+- **Email Validation:** The submission form includes email validation, ensuring accurate user input.
+- **Image Uploads:** Ability to associate images with tickets, providing additional context.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org/): A React framework for building server-side rendered applications.
+- [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
+- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript, adding static typing to the language.
+- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for quickly building custom designs.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Prerequisites
 
-## Learn More
+Ensure you have the following installed:
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js
+- Yarn (alternative to npm)
+- Zendesk API URL
+- Zendesk API Token
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Clone the Repository:**
 
-## Deploy on Vercel
+    ```bash
+    git clone https://github.com/your-username/zendesk-flow.git
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Navigate to the Project Directory:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```bash
+    cd zendesk-flow
+    ```
+
+3. **Install Dependencies:**
+
+    ```bash
+    yarn install
+    ```
+
+4. **Configure Environment Variables:**
+
+    Create a file named `.env.local` in the project root and add the following variables:
+
+    ```env
+    ZENDESK_API_URL=Your_Zendesk_URL
+    ZENDESK_API_TOKEN=Your_Zendesk_Token
+    ```
+
+5. **Start the Development Server:**
+
+    ```bash
+    yarn dev
+    ```
+
+    Access the project at [http://localhost:3000](http://localhost:3000).
+
+## Usage
+
+1. **Fill out the Form:**
+    - Provide the necessary information in the form.
+
+2. **Submit the Form:**
+    - Create a ticket in Zendesk by submitting the form.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
