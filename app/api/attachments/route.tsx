@@ -7,7 +7,6 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const data = await request.json();
-  console.log("🚀 ~ POST ~ data:", data);
 
   try {
     const zendeskApiUrl = process.env.ZENDESK_API_URL;
@@ -17,8 +16,8 @@ export async function POST(request: Request) {
       throw new Error("ZENDESK_API_URL or ZENDESK_API_TOKEN is not defined");
     }
 
-    const { fileName } = data; // Replace with your actual fileName
-    console.log("🚀 ~ POST ~ fileName:", fileName);
+    // const { fileName } = data; // Replace with your actual fileName
+    // console.log("🚀 ~ POST ~ fileName:", fileName);
     // const filePath = "screenshot_02.png"; // Replace with your actual file path
     // const fileBinary = await require("fs").promises.readFile(filePath);
 
@@ -30,15 +29,14 @@ export async function POST(request: Request) {
     };
 
     const uploadResponse: AxiosResponse = await axios.post(
-      `${zendeskApiUrl}/uploads.json?fileName=${fileName}`,
+      `${zendeskApiUrl}/uploads.json?fileName=${data}`,
       config
     );
 
     if (uploadResponse.status === 201) {
       const result = uploadResponse.data;
-      console.log("Upload successful! Upload ID:", result.upload.id);
+      console.log("Upload successful! Upload ID:", result?.upload?.id);
 
-      // You can handle the uploaded file as needed, or return additional information if necessary.
       return NextResponse.json({
         success: true,
         uploadId: result.upload.id,

@@ -15,9 +15,3 @@ body {
   background-color: var(--black);
   color: var(--dark-gray);
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}

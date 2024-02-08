@@ -7,6 +7,13 @@ import axios, { AxiosResponse } from "axios";
 import SelectInput from "@/components/SelectInput";
 import FileInput from "@/components/FileInput";
 
+import {
+  paymentAcquirers,
+  subjectOptions,
+  subjectsExtraFields,
+  transactionStatus,
+} from "@/settings/settings";
+
 interface InputData {
   accountName: string;
   requesterEmail: string;
@@ -29,12 +36,9 @@ export default function Home() {
     detailing: "",
   });
 
-  const subjectOptions = ["Orders", "Payments", "Catalog", "Others"];
-
   const [recentlyCreatedTicketId, setRecentlyCreatedTicketId] =
     useState<String>("");
 
-  console.log("🚀 ~ Home ~ formValues:", formValues);
   const handleInputChange =
     (id: keyof InputData) =>
     (value: string | boolean | File | number | { key: string }) => {
@@ -60,83 +64,93 @@ export default function Home() {
 
     const fileName = file?.name;
     console.log("🚀 ~ handleSubmit ~ fileName:", fileName);
-    const uploadResponse = await axios.post("/api/attachments", { fileName });
+    const uploadResponse = await axios.post(
+      "/api/attachments",
+      JSON.stringify({ fileName })
+    );
 
     return uploadResponse?.data?.token;
   };
 
-  const generateTicketBody = async (formValues, subject, detailing) => {
-    let customFieldsAtBody = "";
+  const getCustomPropertyId = (subject: string, customPropertyName: string) => {
+    const subjectExtraFields = subjectsExtraFields.find(
+      (key: { name: string }) => key.name === subject
+    );
 
+    if (!subjectExtraFields) return undefined;
+
+    const extraFieldId = subjectExtraFields.extraFields
+      ? subjectExtraFields.extraFields.find(
+          (key: { name: string }) => key.name === customPropertyName
+        )?.zendeskId
+      : undefined;
+
+    return extraFieldId;
+  };
+
+  const generateCustomFields = (subject: string) => {
+    console.log("🚀 ~ generateCustomFields ~ subject:", subject);
     switch (subject) {
-      case "Catalog":
-        const { skuId } = formValues;
-        customFieldsAtBody = `<p><strong>SKU ID:</strong> ${
-          skuId || "N/A"
-        }</p>`;
-        break;
-      case "Payments":
-        const { transactionNumber, transactionStatus, paymentAcquirer } =
-          formValues;
-        customFieldsAtBody = `<p><strong>Transaction Number:</strong> ${
-          transactionNumber || "N/A"
-        }</p>
-                              <p><strong>Transaction Status:</strong> ${
-                                transactionStatus || "N/A"
-                              }</p>
-                              <p><strong>Payment Acquirer:</strong> ${
-                                paymentAcquirer || "N/A"
-                              }</p>`;
-        break;
       case "Orders":
-        const { affectingAllUsers, orderNumber } = formValues;
-        customFieldsAtBody = `<p><strong>Affecting All Users:</strong> ${
-          affectingAllUsers ? "Yes" : "No"
-        }</p>
-                              <p><strong>Order Number:</strong> ${
-                                orderNumber || "N/A"
-                              }</p>`;
-        break;
-      default:
-        break;
-    }
+        console.log("🚀 ~ generateCustomFields ~ Orders:");
 
-    return `
-      <div>
-        <h2>Custom Fields Information</h2>
-        ${customFieldsAtBody}
-      </div>
-      <div>
-        <h2>Details</h2>
-        <p>${detailing}</p>
-      </div>
-    `;
+        return [
+          {
+            id: getCustomPropertyId(subject, "Order Number"),
+            value: formValues.orderNumber,
+          },
+          {
+            id: getCustomPropertyId(subject, "Affecting all users?"),
+            value: formValues.affectingAllUsers,
+          },
+        ];
+      case "Payments":
+        return [
+          {
+            id: getCustomPropertyId(subject, "Transaction Number"),
+            value: formValues.transactionNumber,
+          },
+          {
+            id: getCustomPropertyId(subject, "Transaction Status"),
+            value: formValues.transactionStatus,
+          },
+          {
+            id: getCustomPropertyId(subject, "Payment Acquirer"),
+            value: formValues.paymentAcquirer,
+          },
+        ];
+      case "Catalog":
+        return [
+          {
+            id: getCustomPropertyId(subject, "SkuId"),
+            value: formValues.skuId,
+          },
+        ];
+      default:
+        return [];
+    }
   };
 
   const handleSubmit = async () => {
     event?.preventDefault();
     try {
       const { detailing, accountName, requesterEmail, subject } = formValues;
-      console.log("🚀 ~ handleSubmit ~ formValues:", formValues);
-
-      const commentBody = await generateTicketBody(
-        formValues,
-        subject,
-        detailing
-      );
 
       const uploads =
         subject === "Catalog"
           ? [`${await uploadImage(formValues.printOfThePage)}`]
           : [];
 
+      const customFields = generateCustomFields(subject);
+
       const formattedFormValues = {
         ticket: {
           comment: {
-            html_body: `${commentBody}`,
+            body: detailing,
             uploads,
           },
           subject,
+          custom_fields: customFields,
           requester: { name: accountName, email: requesterEmail },
         },
       };
@@ -146,10 +160,10 @@ export default function Home() {
         JSON.stringify(formattedFormValues)
       );
 
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
         const result = await response.data;
-        setRecentlyCreatedTicketId(result.ticket.id);
-        alert("Ticket criado com sucesso! ID do ticket: " + result.ticket.id);
+        setRecentlyCreatedTicketId(result?.ticket?.id);
+        alert("Ticket criado com sucesso! ID do ticket: " + result?.ticket?.id);
         setFormValues({
           accountName: "",
           requesterEmail: "",
@@ -157,7 +171,7 @@ export default function Home() {
           detailing: "",
         });
       } else {
-        console.error("Falha ao criar o ticket:", response.statusText);
+        console.error("Falha ao criar o ticket:", response);
         alert("Oops! Algo deu errado ao criar o ticket.");
       }
     } catch (error) {
@@ -231,11 +245,12 @@ export default function Home() {
               <label className="text-white" htmlFor="transactionStatus">
                 Transaction Status
               </label>
-              <TextInput
+              <SelectInput
                 value={formValues?.transactionStatus}
                 onChange={handleInputChange("transactionStatus")}
                 type="text"
                 inputId="transactionStatus"
+                options={transactionStatus}
                 required={true}
               />
             </div>
@@ -243,11 +258,12 @@ export default function Home() {
               <label className="text-white" htmlFor="paymentAcquirer">
                 Payment Acquirer
               </label>
-              <TextInput
+              <SelectInput
                 value={formValues.paymentAcquirer}
                 onChange={handleInputChange("paymentAcquirer")}
                 type="text"
                 inputId="paymentAcquirer"
+                options={paymentAcquirers}
                 required={true}
               />
             </div>
@@ -290,7 +306,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl p-6 bg-darkGray shadow-md rounded-md">
+    <div className="mx-auto my-auto max-w-2xl p-6 bg-darkGray shadow-md rounded-md drop-shadow-lg">
       <h1 className="text-3xl text-white font-bold mb-6">
         VTEX Service Ticket Form
       </h1>
@@ -318,7 +334,7 @@ export default function Home() {
           <TextInput
             value={formValues.requesterEmail}
             onChange={handleInputChange("requesterEmail")}
-            type="text"
+            type="email"
             inputId="requesterEmail"
             required={true}
           />
