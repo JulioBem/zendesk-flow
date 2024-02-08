@@ -1,19 +1,26 @@
 # Zendesk Flow
 
-Zendesk Flow is a powerful integration tool designed to seamlessly connect your application with the Zendesk API, streamlining the process of creating tickets effortlessly.
+Zendesk Flow is a modern integration tool built with a selection of cutting-edge technologies to provide a workflow for interacting with the Zendesk API.
 
-## Features
+## Why Next.js?
 
-- **Automatic Ticket Creation:** Zendesk Flow automates the creation of tickets within Zendesk, enhancing efficiency.
-- **Email Validation:** The submission form includes email validation, ensuring accurate user input.
-- **Image Uploads:** Ability to associate images with tickets, providing additional context.
+- **React Framework:** Next.js is a React framework that enables server-side rendering, providing better performance and improved SEO.
+- **Simplified Development:** With Next.js, the development process is streamlined, allowing for faster and more efficient coding.
 
-## Technologies Used
+## Why Node.js?
 
-- [Next.js](https://nextjs.org/): A React framework for building server-side rendered applications.
-- [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
-- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript, adding static typing to the language.
-- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for quickly building custom designs.
+- **JavaScript Runtime:** Node.js is a powerful JavaScript runtime, providing a non-blocking, event-driven architecture suitable for building scalable network applications.
+- **Unified Language:** The use of Node.js allows for a unified JavaScript language stack across the entire application.
+
+## Why TypeScript?
+
+- **Static Typing:** TypeScript adds static typing to JavaScript, catching potential errors during development and improving code quality.
+- **Enhanced Developer Experience:** With TypeScript, developers benefit from improved code navigation, autocompletion, and better documentation.
+
+## Why Tailwind CSS?
+
+- **Utility-First Approach:** Tailwind CSS follows a utility-first approach, offering a highly customizable and low-level utility styling framework.
+- **Rapid Prototyping:** Tailwind CSS accelerates the styling process and allows for rapid prototyping without sacrificing design flexibility.
 
 ## Prerequisites
 
@@ -29,7 +36,7 @@ Ensure you have the following installed:
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/your-username/zendesk-flow.git
+    git clone https://github.com/juliobem/zendesk-flow.git
     ```
 
 2. **Navigate to the Project Directory:**
