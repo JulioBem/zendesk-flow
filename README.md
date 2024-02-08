@@ -2,6 +2,13 @@
 
 Zendesk Flow is a modern integration tool built with a selection of cutting-edge technologies to provide a workflow for interacting with the Zendesk API.
 
+## Technologies Used
+
+- [Next.js](https://nextjs.org/): A React framework for building server-side rendered applications.
+- [Node.js](https://nodejs.org/): A JavaScript runtime for server-side development.
+- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript, adding static typing to the language.
+- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for quickly building custom designs.
+
 ## Why Next.js?
 
 - **React Framework:** Next.js is a React framework that enables server-side rendering, providing better performance and improved SEO.
