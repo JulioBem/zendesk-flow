@@ -16,11 +16,6 @@ export async function POST(request: Request) {
       throw new Error("ZENDESK_API_URL or ZENDESK_API_TOKEN is not defined");
     }
 
-    // const { fileName } = data; // Replace with your actual fileName
-    // console.log("🚀 ~ POST ~ fileName:", fileName);
-    // const filePath = "screenshot_02.png"; // Replace with your actual file path
-    // const fileBinary = await require("fs").promises.readFile(filePath);
-
     const config = {
       headers: {
         "Content-Type": "image/png",

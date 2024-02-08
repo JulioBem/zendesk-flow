@@ -1,4 +1,3 @@
-// app/api/server.ts
 import axios from "axios";
 import { NextResponse } from "next/server";
 

@@ -62,8 +62,19 @@ export default function Home() {
   const uploadImage = async (file: object | string | undefined) => {
     if (!file) return;
 
-    const fileName = file?.name;
-    console.log("🚀 ~ handleSubmit ~ fileName:", fileName);
+    let fileName: string | undefined;
+
+    if (typeof file === "object" && file !== null) {
+      fileName = (file as { name?: string }).name;
+    } else if (typeof file === "string") {
+      fileName = file;
+    }
+
+    if (!fileName) {
+      console.error("File name is not available.");
+      return;
+    }
+
     const uploadResponse = await axios.post(
       "/api/attachments",
       JSON.stringify({ fileName })
@@ -89,10 +100,8 @@ export default function Home() {
   };
 
   const generateCustomFields = (subject: string) => {
-    console.log("🚀 ~ generateCustomFields ~ subject:", subject);
     switch (subject) {
       case "Orders":
-        console.log("🚀 ~ generateCustomFields ~ Orders:");
 
         return [
           {

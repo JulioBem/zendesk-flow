@@ -1,5 +1,3 @@
-// Alterações no componente SelectInput para lidar com um dropdown
-
 import React, { ChangeEvent } from "react";
 
 interface InputProps {
@@ -7,7 +5,7 @@ interface InputProps {
   type: string;
   inputId?: string;
   required?: boolean;
-  options?: string[]; // Adicionando opções para o dropdown
+  options?: string[];
   onChange: (value: string) => void;
 }
 
@@ -23,7 +21,6 @@ const SelectInput: React.FC<InputProps> = ({
   };
 
   if (options && options.length > 0) {
-    // Se opções são fornecidas, renderize um dropdown
     return (
       <select
         id={inputId}
